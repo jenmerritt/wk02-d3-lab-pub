@@ -20,6 +20,8 @@ class PubTest < MiniTest::Test
 
     @drinks = [@drink1, @drink2, @drink3]
 
+    @food1 = Food.new("Burger", 7, 5)
+
     @pub = Pub.new("The Southern", 1000, @drinks)
 
   end
@@ -43,8 +45,13 @@ class PubTest < MiniTest::Test
   end
 
   def test_can_add_price_of_drink_to_till()
-    @pub.add_price_of_drink_to_till(@drink1.price)
+    @pub.add_price_of_item_to_till(@drink1.price)
     assert_equal(1004, @pub.till)
+  end
+
+  def test_can_add_price_of_food_to_till()
+    @pub.add_price_of_item_to_till(@food1.price)
+    assert_equal(1007, @pub.till)
   end
 
   def test_stock_count()
@@ -62,6 +69,10 @@ class PubTest < MiniTest::Test
 
   def test_can_sell_to_customer__false
     assert_equal(false, @pub.can_sell_to_customer(@customer2))
+  end
+
+  def test_stock_value
+    assert_equal(10, @pub.stock_value())
   end
 
   def test_check_customer_drunkenness__drunk()
@@ -109,6 +120,13 @@ class PubTest < MiniTest::Test
     assert_equal(50, @customer1.wallet)
     assert_equal(50, @customer1.drunkenness_level)
     assert_equal(1000, @pub.till)
+  end
+
+  def test_can_sell_food_to_customer()
+    @pub.sell_food_to_customer(@food1, @customer1)
+    assert_equal(43, @customer1.wallet())
+    assert_equal(1007, @pub.till())
+    assert_equal(-5, @customer1.drunkenness_level())
   end
 
 end

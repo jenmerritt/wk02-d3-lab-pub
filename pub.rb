@@ -1,3 +1,5 @@
+# require('pry')
+
 class Pub
 
   attr_reader :name, :till
@@ -15,7 +17,7 @@ class Pub
     return nil
   end
 
-  def add_price_of_drink_to_till(price)
+  def add_price_of_item_to_till(price)
     @till += price
   end
 
@@ -47,10 +49,16 @@ class Pub
     if legal == true && drunk == false
       drink = find_drink_by_name(drink_name)
       remove_drink_from_stock(drink)
-      customer.remove_price_of_drink_from_wallet(drink.price)
+      customer.remove_price_of_item_from_wallet(drink.price)
       customer.have_a_drink(drink)
-      add_price_of_drink_to_till(drink.price)
+      add_price_of_item_to_till(drink.price)
     end
+  end
+
+  def sell_food_to_customer(food, customer)
+    customer.eat_food(food)
+    customer.remove_price_of_item_from_wallet(food.price)
+    add_price_of_item_to_till(food.price)
   end
 
 end
