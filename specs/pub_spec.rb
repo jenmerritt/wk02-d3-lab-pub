@@ -14,7 +14,8 @@ class PubTest < MiniTest::Test
     @drink2 = Drink.new("Wine", 1)
     @drink3 = Drink.new("Spirit", 5)
 
-    @customer1 = Customer.new("Andrew", 50)
+    @customer1 = Customer.new("Andrew", 50, 36)
+    @customer2 = Customer.new("John", 50, 17)
 
     @drinks = [@drink1, @drink2, @drink3]
 
@@ -52,6 +53,14 @@ class PubTest < MiniTest::Test
   def test_remove_drink_from_stock()
     @pub.remove_drink_from_stock(@drink3)
     assert_equal(2, @pub.stock_count())
+  end
+
+  def test_can_sell_to_customer__true
+    assert_equal(true, @pub.can_sell_to_customer(@customer1))
+  end
+
+  def test_can_sell_to_customer__false
+    assert_equal(false, @pub.can_sell_to_customer(@customer2))
   end
 
   def test_can_sell_drink_to_customer()

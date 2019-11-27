@@ -27,6 +27,13 @@ class Pub
     @drinks.delete(drink)
   end
 
+  def can_sell_to_customer(customer)
+    if customer.age > 17
+      return true
+    end
+    return false
+  end
+
   def sell_drink_to_customer(drink_name, customer)
     drink = find_drink_by_name(drink_name)
     remove_drink_from_stock(drink)
