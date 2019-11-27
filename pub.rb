@@ -23,13 +23,13 @@ class Pub
     return @drinks.count
   end
 
-  def remove_drink_from_stock(drink_name)
-    drink = find_drink_by_name(drink_name)
+  def remove_drink_from_stock(drink)
     @drinks.delete(drink)
   end
 
   def sell_drink_to_customer(drink_name, customer)
     drink = find_drink_by_name(drink_name)
+    remove_drink_from_stock(drink)
     customer.remove_price_of_drink_from_wallet(drink.price)
     add_price_of_drink_to_till(drink.price)
   end
