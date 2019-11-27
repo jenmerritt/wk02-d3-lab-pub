@@ -5,6 +5,7 @@ Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 require_relative('../pub')
 require_relative('../customer')
 require_relative('../drink')
+require_relative('../food')
 
 class PubTest < MiniTest::Test
 
