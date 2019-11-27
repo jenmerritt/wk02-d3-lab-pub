@@ -12,7 +12,7 @@ class CustomerTest < MiniTest::Test
     @customer1 = Customer.new("Andrew", 50, 36)
     @customer2 = Customer.new("John", 30, 17)
 
-    @drink1 = Drink.new("Beer", 4)
+    @drink1 = Drink.new("Beer", 4, 5)
 
   end
 
@@ -26,6 +26,10 @@ class CustomerTest < MiniTest::Test
 
   def test_customer_has_age
     assert_equal(36, @customer1.age)
+  end
+
+  def test_customer_has_drunkenness_level
+    assert_equal(0, @customer1.drunkenness_level)
   end
 
   def test_remove_price_of_drink_from_wallet()
