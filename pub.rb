@@ -1,4 +1,5 @@
 # require('pry')
+# binding.pry
 
 class Pub
 
@@ -10,12 +11,12 @@ class Pub
     @drinks = drinks
   end
 
-  def find_drink_by_name(drink_name)
-    for drink in @drinks
-      return drink if drink.name == drink_name
-    end
-    return nil
-  end
+  # def find_drink_by_name(drink_name)
+  #   for drink in @drinks
+  #     return drink if drink.name == drink_name
+  #   end
+  #   return nil
+  # end
 
   def add_price_of_item_to_till(price)
     @till += price
@@ -51,11 +52,11 @@ class Pub
     return false
   end
 
-  def sell_drink_to_customer(drink_name, customer)
+  def sell_drink_to_customer(drink, customer)
     legal = can_sell_to_customer(customer)
     drunk = check_customer_drunkenness(customer)
-    if legal == true && drunk == false
-      drink = find_drink_by_name(drink_name)
+    can_afford = customer.can_afford_item(drink)
+    if legal == true && drunk == false && can_afford == true
       remove_drink_from_stock(drink)
       customer.remove_price_of_item_from_wallet(drink.price)
       customer.have_a_drink(drink)
@@ -64,9 +65,12 @@ class Pub
   end
 
   def sell_food_to_customer(food, customer)
-    customer.eat_food(food)
-    customer.remove_price_of_item_from_wallet(food.price)
-    add_price_of_item_to_till(food.price)
+    can_afford = customer.can_afford_item(food)
+    if can_afford == true
+      customer.eat_food(food)
+      customer.remove_price_of_item_from_wallet(food.price)
+      add_price_of_item_to_till(food.price)
+    end
   end
 
 end

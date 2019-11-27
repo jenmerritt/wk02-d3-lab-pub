@@ -12,6 +12,8 @@ class CustomerTest < MiniTest::Test
 
     @customer1 = Customer.new("Andrew", 50, 36)
     @customer2 = Customer.new("John", 30, 17)
+    @customer3 = Customer.new("Julia", 5, 23)
+    @customer4 = Customer.new("Eric", 2, 43)
 
     @drink1 = Drink.new("Beer", 4, 5)
 
@@ -29,6 +31,21 @@ class CustomerTest < MiniTest::Test
 
   def test_customer_has_age
     assert_equal(36, @customer1.age())
+  end
+
+  def test_customer_can_afford_drink__true_more_than
+    can_afford_drink = @customer1.can_afford_item(@drink1)
+    assert_equal(true, can_afford_drink)
+  end
+
+  def test_customer_can_afford_drink__true_equal
+    can_afford_drink = @customer3.can_afford_item(@drink1)
+    assert_equal(true, can_afford_drink)
+  end
+
+  def test_customer_can_afford_drink__false
+    can_afford_drink = @customer4.can_afford_item(@drink1)
+    assert_equal(false, can_afford_drink)
   end
 
   def test_customer_has_drunkenness_level

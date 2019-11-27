@@ -21,4 +21,8 @@ class Customer
    @drunkenness_level -= food.rejuvenation_level
  end
 
+ def can_afford_item(item)
+   return @wallet >= item.price
+ end
+
 end
