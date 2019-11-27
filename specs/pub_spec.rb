@@ -89,4 +89,25 @@ class PubTest < MiniTest::Test
     assert_equal(1005, @pub.till)
   end
 
+  def test_can_sell_drink_to_customer__sober()
+    @pub.sell_drink_to_customer("Spirit", @customer1)
+    assert_equal(2, @pub.stock_count())
+    assert_equal(45, @customer1.wallet)
+    assert_equal(10, @customer1.drunkenness_level)
+    assert_equal(1005, @pub.till)
+  end
+
+  def test_can_sell_drink_to_customer__drunk()
+    @customer1.have_a_drink(@drink3)
+    @customer1.have_a_drink(@drink3)
+    @customer1.have_a_drink(@drink3)
+    @customer1.have_a_drink(@drink3)
+    @customer1.have_a_drink(@drink3)
+    @pub.sell_drink_to_customer("Spirit", @customer1)
+    assert_equal(3, @pub.stock_count())
+    assert_equal(50, @customer1.wallet)
+    assert_equal(50, @customer1.drunkenness_level)
+    assert_equal(1000, @pub.till)
+  end
+
 end
