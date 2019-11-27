@@ -34,12 +34,20 @@ class Pub
     return false
   end
 
+  def check_customer_drunkenness(customer)
+    if customer.drunkenness_level >= 50
+      return true
+    end
+    return false
+  end
+
   def sell_drink_to_customer(drink_name, customer)
     legal = can_sell_to_customer(customer)
     if legal == true
       drink = find_drink_by_name(drink_name)
       remove_drink_from_stock(drink)
       customer.remove_price_of_drink_from_wallet(drink.price)
+      customer.have_a_drink(drink)
       add_price_of_drink_to_till(drink.price)
     end
   end

@@ -32,6 +32,11 @@ class CustomerTest < MiniTest::Test
     assert_equal(0, @customer1.drunkenness_level)
   end
 
+  def test_increase_drunkenness_by_alcohol_level()
+    @customer1.have_a_drink(@drink1)
+    assert_equal(5, @customer1.drunkenness_level())  
+  end
+
   def test_remove_price_of_drink_from_wallet()
     @customer1.remove_price_of_drink_from_wallet(@drink1.price)
     assert_equal(46, @customer1.wallet)
