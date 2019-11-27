@@ -18,7 +18,7 @@ class PubTest < MiniTest::Test
 
     @drinks = [@drink1, @drink2, @drink3]
 
-    @pub = Pub.new("The Southern", 1000, [@drinks])
+    @pub = Pub.new("The Southern", 1000, @drinks)
 
   end
 
@@ -28,6 +28,16 @@ class PubTest < MiniTest::Test
 
   def test_amount_of_cash_in_till
     assert_equal(1000, @pub.till)
+  end
+
+  def test_can_find_drink_by_name__found()
+    drink = @pub.find_drink_by_name("Beer")
+    assert_equal(@drink1, drink)
+  end
+
+  def test_can_find_drink_by_name__not_found()
+    drink = @pub.find_drink_by_name("Whisky")
+    assert_nil(drink)
   end
 
 end
