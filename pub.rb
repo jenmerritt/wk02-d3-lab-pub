@@ -35,10 +35,13 @@ class Pub
   end
 
   def sell_drink_to_customer(drink_name, customer)
-    drink = find_drink_by_name(drink_name)
-    remove_drink_from_stock(drink)
-    customer.remove_price_of_drink_from_wallet(drink.price)
-    add_price_of_drink_to_till(drink.price)
+    legal = can_sell_to_customer(customer)
+    if legal == true
+      drink = find_drink_by_name(drink_name)
+      remove_drink_from_stock(drink)
+      customer.remove_price_of_drink_from_wallet(drink.price)
+      add_price_of_drink_to_till(drink.price)
+    end
   end
 
 end

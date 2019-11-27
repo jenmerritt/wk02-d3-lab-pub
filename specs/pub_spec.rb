@@ -63,7 +63,14 @@ class PubTest < MiniTest::Test
     assert_equal(false, @pub.can_sell_to_customer(@customer2))
   end
 
-  def test_can_sell_drink_to_customer()
+  def test_can_sell_drink_to_customer__under_age()
+    @pub.sell_drink_to_customer("Spirit", @customer2)
+    assert_equal(3, @pub.stock_count())
+    assert_equal(50, @customer2.wallet)
+    assert_equal(1000, @pub.till)
+  end
+
+  def test_can_sell_drink_to_customer__legal_age()
     @pub.sell_drink_to_customer("Spirit", @customer1)
     assert_equal(2, @pub.stock_count())
     assert_equal(45, @customer1.wallet)
