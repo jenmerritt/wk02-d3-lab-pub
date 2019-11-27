@@ -25,6 +25,14 @@ class Pub
     return @drinks.count
   end
 
+  def stock_value()
+    total = 0
+    for drink in @drinks
+      total += drink.price
+    end
+    return total
+  end
+
   def remove_drink_from_stock(drink)
     @drinks.delete(drink)
   end
