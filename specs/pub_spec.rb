@@ -40,4 +40,25 @@ class PubTest < MiniTest::Test
     assert_nil(drink)
   end
 
+  def test_can_add_price_of_drink_to_till()
+    @pub.add_price_of_drink_to_till(@drink1.price)
+    assert_equal(1004, @pub.till)
+  end
+
+  def test_stock_count()
+    assert_equal(3, @pub.stock_count)
+  end
+
+  def test_remove_drink_from_stock()
+    @pub.remove_drink_from_stock("Wine")
+    assert_equal(2, @pub.stock_count())
+  end
+
+  def test_can_sell_drink_to_customer()
+    @pub.sell_drink_to_customer("Spirit", @customer1)
+    # assert_equal(2, @pub.stock_count())
+    assert_equal(45, @customer1.wallet)
+    assert_equal(1005, @pub.till)
+  end
+
 end
